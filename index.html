@@ -1,0 +1,290 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser Extension Creator</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Add Monaco Editor CDN -->
+  <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/editor/editor.main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Browser Extension Creator</h1>
+    <div class="ai-section">
+      <h2>
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="inline-block mr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        AI-Powered Extension Generator
+      </h2>
+      <p>Describe your extension idea, and let AI help you configure it!</p>
+      <div class="ai-input">
+        <textarea id="aiPrompt" placeholder="Example: Create a password manager extension that can save and auto-fill passwords, with a popup interface and strong security features."></textarea>
+        <button id="aiGenerateBtn">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+          </svg>
+          Generate
+        </button>
+      </div>
+      <div class="ai-examples">
+        <strong>Example prompts:</strong>
+        <ul>
+          <li><code>Create a tab manager that groups similar tabs and allows quick switching</code></li>
+          <li><code>Build a bookmark organizer with tags and search capabilities</code></li>
+          <li><code>Make an extension that blocks ads and tracking scripts</code></li>
+        </ul>
+      </div>
+    </div>
+    <div class="form-container">
+      <div class="form-group">
+        <h2>Basic Information</h2>
+        <label for="extensionName">Extension Name</label>
+        <input type="text" id="extensionName" placeholder="Enter extension name" required>
+      
+        <label for="extensionDescription">Description</label>
+        <textarea id="extensionDescription" placeholder="Describe what your extension does" required></textarea>
+      
+        <label for="version">Version</label>
+        <input type="text" id="version" value="1.0.0" placeholder="e.g., 1.0.0" required>
+
+        <label for="author">Author</label>
+        <input type="text" id="author" placeholder="Your name or organization">
+
+        <label for="homepage">Homepage URL</label>
+        <input type="text" id="homepage" placeholder="https://your-website.com">
+      </div>
+
+      <div class="form-group">
+        <h2>Extension Icon</h2>
+        <div class="icon-upload">
+          <label for="iconFile" class="icon-label">
+            <div id="iconPreview">
+              <svg class="upload-icon" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              </svg>
+              <span>Upload Icon</span>
+            </div>
+          </label>
+          <input type="file" id="iconFile" accept="image/png,image/jpeg" class="hidden">
+          <p class="icon-help">Recommended: 128x128 PNG</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <h2>Browser Support</h2>
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="chromium" checked>
+            <label for="chromium">
+              <svg class="browser-icon" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+              </svg>
+              Chromium (Chrome/Edge/Opera)
+            </label>
+          </div>
+          
+          <div class="checkbox-item">
+            <input type="checkbox" id="firefox">
+            <label for="firefox">
+              <svg class="browser-icon" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+              </svg>
+              Firefox
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <h2>Permissions</h2>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="basic">Basic</button>
+          <button class="tab-btn" data-tab="advanced">Advanced</button>
+        </div>
+        
+        <div class="tab-content active" data-tab="basic">
+          <div class="checkbox-group permissions-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="storage">
+              <label for="storage">Storage</label>
+            </div>
+            
+            <div class="checkbox-item">
+              <input type="checkbox" id="tabs">
+              <label for="tabs">Tabs</label>
+            </div>
+            
+            <div class="checkbox-item">
+              <input type="checkbox" id="activeTab">
+              <label for="activeTab">Active Tab</label>
+            </div>
+            
+            <div class="checkbox-item">
+              <input type="checkbox" id="notifications">
+              <label for="notifications">Notifications</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" data-tab="advanced">
+          <div class="checkbox-group permissions-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="webRequest">
+              <label for="webRequest">Web Request</label>
+            </div>
+            
+            <div class="checkbox-item">
+              <input type="checkbox" id="cookies">
+              <label for="cookies">Cookies</label>
+            </div>
+            
+            <div class="checkbox-item">
+              <input type="checkbox" id="downloads">
+              <label for="downloads">Downloads</label>
+            </div>
+            
+            <div class="checkbox-item">
+              <input type="checkbox" id="history">
+              <label for="history">History</label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="bookmarks">
+              <label for="bookmarks">Bookmarks</label>
+            </div>
+
+            <div class="checkbox-item">
+              <input type="checkbox" id="proxy">
+              <label for="proxy">Proxy</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <h2>Extension Features</h2>
+        <div class="checkbox-group features-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="popup">
+            <label for="popup">Popup Interface</label>
+          </div>
+          
+          <div class="checkbox-item">
+            <input type="checkbox" id="options">
+            <label for="options">Options Page</label>
+          </div>
+          
+          <div class="checkbox-item">
+            <input type="checkbox" id="background">
+            <label for="background">Background Script</label>
+          </div>
+          
+          <div class="checkbox-item">
+            <input type="checkbox" id="contentScript">
+            <label for="contentScript">Content Script</label>
+          </div>
+
+          <div class="checkbox-item">
+            <input type="checkbox" id="devtools">
+            <label for="devtools">DevTools Panel</label>
+          </div>
+
+          <div class="checkbox-item">
+            <input type="checkbox" id="contextMenu">
+            <label for="contextMenu">Context Menu</label>
+          </div>
+
+          <div class="checkbox-item">
+            <input type="checkbox" id="commands">
+            <label for="commands">Keyboard Commands</label>
+          </div>
+
+          <div class="checkbox-item">
+            <input type="checkbox" id="omnibox">
+            <label for="omnibox">Omnibox Integration</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" id="contentMatchingSection" style="display: none;">
+        <h2>Content Script Settings</h2>
+        <label for="urlPatterns">URL Patterns (one per line)</label>
+        <textarea id="urlPatterns" placeholder="*://*.example.com/*"></textarea>
+        
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="matchAll">
+            <label for="matchAll">Match all URLs</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="runAtStart">
+            <label for="runAtStart">Run at document start</label>
+          </div>
+        </div>
+      </div>
+
+      <button id="generateBtn" class="generate-btn">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        Generate Extension
+      </button>
+    </div>
+
+    <!-- Add before the download section -->
+    <div class="code-preview-section">
+      <h2>Code Preview</h2>
+      <div class="code-preview-controls">
+        <div class="file-selector">
+          <select id="fileSelector">
+            <option value="manifest">manifest.json</option>
+            <option value="popup">popup.html</option>
+            <option value="background">background.js</option>
+            <option value="content">content.js</option>
+            <option value="options">options.html</option>
+          </select>
+        </div>
+        <div class="preview-tabs">
+          <button class="preview-tab active" data-view="code">Code</button>
+          <button class="preview-tab" data-view="preview">Preview</button>
+        </div>
+      </div>
+      <div class="preview-container">
+        <div id="codeEditor" class="preview-panel active"></div>
+        <div id="livePreview" class="preview-panel">
+          <iframe id="previewFrame"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div id="downloadSection" class="download-section hidden">
+      <h2>🎉 Your Extension is Ready!</h2>
+      <p>Download the extension files for your preferred browser:</p>
+      <div class="download-buttons">
+        <button id="downloadChrome" class="download-btn hidden">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+          </svg>
+          Download for Chrome
+        </button>
+        <button id="downloadFirefox" class="download-btn hidden">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+          </svg>
+          Download for Firefox
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <!-- Add Monaco Editor scripts -->
+  <script>var require = { paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' } }</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/editor/editor.main.nls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/editor/editor.main.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
